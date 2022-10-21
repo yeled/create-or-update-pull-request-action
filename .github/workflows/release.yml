@@ -16,6 +16,7 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: rm .gitignore
+      - run: npm install --save-dev @semantic-release/git
       - run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
