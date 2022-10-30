@@ -4,6 +4,7 @@ const { inspect } = require("util");
 const { command } = require("execa");
 const core = require("@actions/core");
 const { Octokit } = require("@octokit/core");
+const { retry } = require("@octokit/plugin-retry");
 
 const TEMPORARY_BRANCH_NAME = `tmp-create-or-update-pull-request-action-${Math.random()
   .toString(36)
@@ -151,6 +152,7 @@ async function main() {
     if (remoteBranchExists) {
       const q = `head:${inputs.branch} type:pr is:open repo:${process.env.GITHUB_REPOSITORY}`;
       const { data } = await octokit.request("GET /search/issues", {
+        request: { retries: 1, retryAfter; 1 }
         q,
       });
 
